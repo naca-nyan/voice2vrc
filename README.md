@@ -11,6 +11,7 @@ pip install python-osc
 ```sh
 python server.py
 ```
+
 でサーバーを起動した後に
 [localhost:9090](http://localhost:9090)
 にアクセスすると動いてるはず

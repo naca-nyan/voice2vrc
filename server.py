@@ -16,6 +16,7 @@ def handleText(text):
     elif "脱ぐ" in text:
         setOuter(0)
 
+
 class PostHandler(SimpleHTTPRequestHandler):
     def do_POST(self):
         content_len = int(self.headers['content-length'])
@@ -25,6 +26,7 @@ class PostHandler(SimpleHTTPRequestHandler):
         self.send_response(200)
         if "text" in data:
             handleText(data['text'])
+
 
 if __name__ == '__main__':
     HTTPServer((ip, port), PostHandler).serve_forever()
