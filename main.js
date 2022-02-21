@@ -1,3 +1,16 @@
+const commands = [
+  {
+    if: (t) => t.includes("着る") || t.includes("切る"),
+    path: "/avatar/parameters/Outer",
+    value: 1,
+  },
+  {
+    if: (t) => t.includes("脱ぐ"),
+    path: "/avatar/parameters/Outer",
+    value: 0,
+  },
+];
+
 function evtypelog(event) {
   console.log(event.type);
 }
@@ -20,14 +33,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const result = event.results.item(0).item(0).transcript;
     $input.textContent = result;
-    fetch("http://localhost:9090/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        text: result,
-      }),
+    commands.forEach(({ if: test, path, value }) => {
+      if (test(result)) {
+        console.log(path, value);
+        fetch("http://localhost:9090/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            path: path,
+            value: value,
+          }),
+        });
+      }
     });
   });
   re.addEventListener("end", (event) => {
