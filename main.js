@@ -15,7 +15,7 @@ function evtypelog(event) {
   console.log(event.type);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function start() {
   const $input = document.querySelector("#input");
   /** @type {SpeechRecognition} */
   const re = new (webkitSpeechRecognition || SpeechRecognition)();
@@ -54,4 +54,4 @@ document.addEventListener("DOMContentLoaded", () => {
     re.start();
   });
   re.start();
-});
+}
